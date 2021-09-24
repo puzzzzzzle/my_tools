@@ -97,13 +97,16 @@ def get_value(key, default=None):
     return _global_dict[key]
 
 
+logger = logging.getLogger(__name__)
 def on_error(e):
-    logging.getLogger(__name__).error(e)
-    # os.system('pause')
+    logger.error(e)
+    logger.error("!!!   fail   !!!")
+    os.system('pause')
 
 
 def on_end(para):
-    logging.getLogger(__name__).info(para)
+    logger.info(para)
+    logger.info("!!!   success   !!!")
     os.system('pause')
 
 

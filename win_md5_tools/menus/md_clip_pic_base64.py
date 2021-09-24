@@ -1,15 +1,11 @@
-import os
-import sys
-import base64
 from PIL import Image
 from PIL import ImageGrab
 from io import BytesIO
-import pyperclip3
 import winreg as reg
 import logging
 
 import consts
-from file_base64 import get_file_base64
+from md_pic_base64 import encode_to_clip
 from menu_operator import batch_add, batch_remove
 
 logger = logging.getLogger(__name__)
@@ -24,18 +20,11 @@ def encode_image_from_clip():
     if not isinstance(image, Image.Image):
         # tkinter.messagebox.showinfo("picture2base64", "not a image in clipboard.")
         logger.info("not a image in clipboard.")
-        consts.on_error(Exception("not a image in clipboard."))
-        return
+        raise Exception("not a image in clipboard.")
     img_buffer = BytesIO()
     image.save(img_buffer, format=picture_format, optimize=True, quality=40)
     byte_data = img_buffer.getvalue()
-    base64_byte = base64.b64encode(byte_data)
-    # 去除首尾多余字符
-    # base64_str = (str(base64_byte))[2:-1]
-    base64_str = base64_byte.decode()
-    msg = '[image]:data:image/' + picture_format + ';base64,' + base64_str
-    pyperclip3.copy(msg)
-    logger.info("send base64 to clipboard succeed! len: " + str(len(msg)))
+    encode_to_clip(byte_data)
 
 
 # 菜单名称
@@ -45,7 +34,7 @@ py_command = rf'{consts.get_exe_str(__file__)} "%v"'
 reg_root = reg.HKEY_CLASSES_ROOT
 # * : 所有文件
 # AllFilesystemObjects: 所有文件/文件夹
-paths = [r'*\\shell']
+paths = [r'*\\shell', r'AllFilesystemObjects\\shell']
 shortcut_key = 'B'
 
 
@@ -58,5 +47,9 @@ def reg_self(is_reg):
 
 
 if __name__ == '__main__':
-    encode_image_from_clip()
-    consts.on_end(menu_name)
+    try:
+        encode_image_from_clip()
+        consts.on_end(menu_name)
+    except Exception as e:
+        logger.error(f"fail {e}")
+        consts.on_error(e)

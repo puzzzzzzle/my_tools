@@ -4,7 +4,6 @@ import sys
 sys.path.append("./menus")
 
 import menus
-
 import consts as consts
 
 logger = logging.getLogger(__name__)
@@ -66,6 +65,6 @@ def do_reg_one(cmd_name, is_reg=True):
 
 
 if __name__ == '__main__':
-    do_reg_all(False)
-    do_reg_one("md pic from clip", False)
+    do_reg_all(True)
+    # do_reg_one("md pic from clip", True)
     pass
