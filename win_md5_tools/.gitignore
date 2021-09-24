@@ -1,0 +1,7 @@
+/data/**/*
+/logs/**/*
+/*.png
+.idea/
+**/__pycache__
+_debug*
+.vscode/
