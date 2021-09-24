@@ -31,7 +31,7 @@ reg_root = reg.HKEY_CLASSES_ROOT
 # * : 所有文件
 # AllFilesystemObjects: 所有文件/文件夹
 paths = [r'*\\shell']
-shortcut_key = 'B'
+shortcut_key = ''
 
 
 def reg_self(is_reg):

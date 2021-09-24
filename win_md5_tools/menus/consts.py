@@ -109,7 +109,7 @@ def on_error(e):
 def on_end(para):
     logger.info(para)
     logger.info("!!!   success   !!!")
-    os.system('pause')
+    # os.system('pause')
 
 
 def get_exe_str(file):

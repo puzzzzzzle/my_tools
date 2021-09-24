@@ -34,8 +34,8 @@ py_command = rf'{consts.get_exe_str(__file__)} "%v"'
 reg_root = reg.HKEY_CLASSES_ROOT
 # * : 所有文件
 # AllFilesystemObjects: 所有文件/文件夹
-paths = [r'*\\shell', r'AllFilesystemObjects\\shell']
-shortcut_key = 'B'
+paths = [r'*\\shell', r'AllFilesystemObjects\\shell', r"Directory\\shell",r"Directory\\Background\\shell","Drive\\shell"]
+shortcut_key = ''
 
 
 def reg_self(is_reg):
