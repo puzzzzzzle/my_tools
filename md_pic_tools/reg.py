@@ -44,7 +44,7 @@ def get_reg_info():
 def do_reg_all(is_reg=True):
     infos = get_reg_info()
     for name, func, reg_module_name in infos:
-        logger.info(f"---  now reg [{name}] by [{reg_module_name}]")
+        logger.info(f"---  now reg({is_reg}) [{name}] by [{reg_module_name}]")
         try:
             func(is_reg)
         except Exception as e:
@@ -56,7 +56,7 @@ def do_reg_one(cmd_name, is_reg=True):
     infos = get_reg_info()
     for name, func, reg_module_name in infos:
         if name == cmd_name:
-            logger.info(f"---  now reg [{name}] by [{reg_module_name}]")
+            logger.info(f"---  now reg({is_reg}) [{name}] by [{reg_module_name}]")
             try:
                 func(is_reg)
             except Exception as e:
@@ -65,6 +65,13 @@ def do_reg_one(cmd_name, is_reg=True):
 
 
 if __name__ == '__main__':
-    do_reg_all(True)
+    if len(sys.argv) ==1:
+        logger.info("register all")
+        do_reg_all(True)
+    else:
+        flag = "true" == sys.argv[1].lower()
+        logger.info(f"is register {flag}")
+        do_reg_all(flag)
+        pass
     # do_reg_one("md pic from clip", True)
     pass
